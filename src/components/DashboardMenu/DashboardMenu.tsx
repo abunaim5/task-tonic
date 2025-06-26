@@ -1,14 +1,12 @@
 // 'use client';
 import Link from "next/link";
-import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineInsertChart, MdOutlineSettings } from "react-icons/md";
-import { Inbox, LayoutDashboard } from "lucide-react";
+import { CircleUser, Inbox, LayoutDashboard } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const DashboardMenu = () => {
     const linkCls = 'flex items-center gap-[5px] px-[15px] py-[10px] rounded-sm hover:text-white hover:bg-[#3E3EE0] transition-all duration-[400ms]'
     const pathname = usePathname();
-    // const isActive = pathname === href;
 
     return (
         <nav>
@@ -16,12 +14,12 @@ const DashboardMenu = () => {
                 <h1 className='text-2xl font-bold'>TaskTonic</h1>
                 <div className='mt-10 space-y-2'>
                     <Link href='/' className={`${linkCls} ${pathname === '/' ? 'text-white bg-[#3E3EE0] font-semibold' : ''}`}>
-                        <AiOutlineHome size={18} />
-                        <span>General</span>
+                        <LayoutDashboard size={18} />
+                        <span>Dashboard</span>
                     </Link>
                     <Link href='/' className={`${linkCls} `}>
-                        <LayoutDashboard size={18} />
-                        <span>Board</span>
+                        <CircleUser size={18} />
+                        <span>Profile</span>
                     </Link>
                     <Link href='/' className={`${linkCls} `}>
                         <MdOutlineInsertChart size={18} />

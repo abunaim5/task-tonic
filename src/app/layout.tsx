@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper/LayoutWrapper";
+import ReactQueryProvider from "./providers/ReactQueryProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <LayoutWrapper>
-          {children}
-        </LayoutWrapper>
+        <ReactQueryProvider>
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
+        </ReactQueryProvider>
       </body>
     </html>
   );
