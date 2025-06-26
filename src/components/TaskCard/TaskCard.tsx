@@ -1,16 +1,18 @@
 import { IoMdArrowUp } from "react-icons/io";
-import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { FaRegEye } from "react-icons/fa6";
 import { SquarePen, Trash2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskType } from "@/types/types";
+import StatusBadge from "../StatusBadge/StatusBadge";
 
 type TaskPropType = {
     task: TaskType;
 };
 
-const TaskCard = ({task}: TaskPropType) => {
+const TaskCard = ({ task }: TaskPropType) => {
+    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' }
+
     return (
         < div className='p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white' >
             <div className='flex items-center justify-between'>
@@ -20,10 +22,10 @@ const TaskCard = ({task}: TaskPropType) => {
                     <span>High</span>
                 </div>
             </div>
-            <Badge>{task.status}</Badge>
+            <StatusBadge status={task.status} />
             <div className='space-x-3'>
                 <span>Due date:</span>
-                <span>{task.due_date}</span>
+                <span>{new Date(task.due_date).toLocaleDateString('en-us', options)}</span>
             </div>
             <div className='flex items-center justify-between'>
                 <div className='space-x-2'>
