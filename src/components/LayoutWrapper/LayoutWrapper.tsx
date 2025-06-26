@@ -32,7 +32,7 @@ const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
                         </Avatar>
                     </div>
                 </div>
-                <main>
+                <main className='p-8'>
                     {children}
                 </main>
             </div>
