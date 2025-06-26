@@ -1,16 +1,13 @@
 'use client';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import TaskCard from "@/components/TaskCard/TaskCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useTasks from "@/lib/useTasks";
-import { Ellipsis, Plus, SquarePen, Trash2 } from "lucide-react";
+import { TaskType } from "@/types/types";
+import { Ellipsis, Plus} from "lucide-react";
 import { CiFilter } from "react-icons/ci";
-import { FaRegEye } from "react-icons/fa6";
-import { IoMdArrowUp } from "react-icons/io";
 
 export default function Home() {
-  const [tasks, isTasksLoading] = useTasks();
+  const {tasks, isLoading} = useTasks();
   console.log(tasks)
 
   return (
@@ -40,45 +37,16 @@ export default function Home() {
         </div>
       </div>
       <div className='flex items-center gap-5 justify-between h-full mt-8 text-lg font-semibold'>
-        <div className='flex-1 h-full p-4 rounded-sm bg-[#F8F9FA]'>
+        <div className='flex-1 h-full p-4 rounded-sm bg-[#F8F9FA] overflow-hidden'>
           <div className='flex items-center gap-2'>
             <div className='flex items-center justify-center w-9 h-9 rounded-full text-white bg-cyan-400'>2</div>
             <h1>TO DO</h1>
           </div>
           {/* task cards */}
-          <div className='mt-4'>
-            {/* card */}
-            <div className='p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white'>
-              <div className='flex items-center justify-between'>
-                <h4 className='text-lg'>Task Name</h4>
-                <div className='flex items-center gap-2 text-red-500'>
-                  <IoMdArrowUp size={20} />
-                  <span>High</span>
-                </div>
-              </div>
-              <Badge>Pending</Badge>
-              <div className='space-x-3'>
-                <span>Due date:</span>
-                <span>6/11/2025</span>
-              </div>
-              <div className='flex items-center justify-between'>
-                <div className='space-x-2'>
-                  <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
-                    <FaRegEye />
-                  </Button>
-                  <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
-                    <SquarePen />
-                  </Button>
-                  <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
-                    <Trash2 />
-                  </Button>
-                </div>
-                <Avatar>
-                  <AvatarImage src="https://github.com/leerob.png" alt="@leerob" />
-                  <AvatarFallback>LR</AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
+          <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+            {
+              isLoading ? (<div>Loading...</div>) : tasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} />)
+            }
           </div>
         </div>
         <div className='flex-1 h-full p-4 rounded-sm bg-[#F8F9FA]'>
