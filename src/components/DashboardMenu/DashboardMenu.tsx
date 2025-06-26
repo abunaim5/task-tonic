@@ -1,7 +1,7 @@
 // 'use client';
 import Link from "next/link";
 import { MdOutlineInsertChart, MdOutlineSettings } from "react-icons/md";
-import { CircleUser, Inbox, LayoutDashboard } from "lucide-react";
+import { CircleUser, ClipboardPlus, Inbox, LayoutDashboard } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const DashboardMenu = () => {
@@ -16,6 +16,10 @@ const DashboardMenu = () => {
                     <Link href='/' className={`${linkCls} ${pathname === '/' ? 'text-white bg-[#3E3EE0] font-semibold' : ''}`}>
                         <LayoutDashboard size={18} />
                         <span>Dashboard</span>
+                    </Link>
+                    <Link href='/addtask' className={`${linkCls} ${pathname === '/addtask' ? 'text-white bg-[#3E3EE0] font-semibold' : ''}`}>
+                        <ClipboardPlus size={18} />
+                        <span>Add Task</span>
                     </Link>
                     <Link href='/' className={`${linkCls} `}>
                         <CircleUser size={18} />

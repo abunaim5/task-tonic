@@ -24,7 +24,7 @@ const TaskCard = ({ task }: TaskPropType) => {
             </div>
             <StatusBadge status={task.status} />
             <div className='space-x-3'>
-                <span>Due date:</span>
+                <span>Due Date:</span>
                 <span>{new Date(task.due_date).toLocaleDateString('en-us', options)}</span>
             </div>
             <div className='flex items-center justify-between'>

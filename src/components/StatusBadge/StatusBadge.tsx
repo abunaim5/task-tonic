@@ -12,7 +12,7 @@ const StatusBadge = ({ status }: { status: string }) => {
 
     return (
         <Badge className={`${colorMap[status.toLowerCase()] || 'bg-gray-200 text-gray-800'} max-w-fit rounded-sm cursor-pointer`}>
-            {status}
+            {status.toLowerCase()}
         </Badge>
     );
 };
