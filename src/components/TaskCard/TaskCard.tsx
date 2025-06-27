@@ -34,7 +34,7 @@ const TaskCard = ({ task }: TaskPropType) => {
                         <Link href={`/viewtask/${task.id}`}><FaRegEye /></Link>
                     </Button>
                     <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
-                        <SquarePen />
+                        <Link href={`/edittask/${task.id}`}><SquarePen /></Link>
                     </Button>
                     <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
                         <Trash2 />
