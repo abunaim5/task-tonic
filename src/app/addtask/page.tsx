@@ -12,7 +12,7 @@ interface IFormInput {
 };
 
 const AddTask = () => {
-    const iClass = `w-full rounded-none px-[14px] py-[10px] mt-2 border focus:outline-none`
+    const iClass = `w-full rounded-sm px-[14px] py-[10px] mt-2 border focus:outline-none`
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
     const axiosPublic = getAxiosPublic();
 
@@ -36,9 +36,10 @@ const AddTask = () => {
     };
 
     return (
-        <div>
-            <form className='w-full space-y-4' onSubmit={handleSubmit(onSubmit)}>
-                <div className='w-1/2 mx-auto space-y-4'>
+        <section className='h-[calc(100vh-206px)]'>
+            <h3 className='text-2xl font-semibold'>New Task</h3>
+            <form className='w-full content-center space-y-4 p-4 mt-8 h-full rounded-sm bg-[#F8F9FA]' onSubmit={handleSubmit(onSubmit)}>
+                <div className='w-1/2 mx-auto space-y-4 p-4 shadow-sm rounded-sm bg-white'>
                     <div className='flex flex-col w-full'>
                         <label htmlFor='title'>Title <span className='text-red-500'>*</span></label>
                         <input
@@ -102,10 +103,10 @@ const AddTask = () => {
                             <p className='text-red-500' role="alert">{errors.description.message}</p>
                         )}
                     </div>
-                    <input className='w-full cursor-pointer py-[10px] bg-black hover:bg-gray-900 text-white' type="submit" value='Submit' />
+                    <input className='w-full cursor-pointer py-[10px] rounded-sm bg-black hover:bg-gray-900 text-white' type="submit" value='Submit' />
                 </div>
             </form>
-        </div>
+        </section>
     );
 };
 

@@ -5,6 +5,7 @@ import { SquarePen, Trash2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskType } from "@/types/types";
 import StatusBadge from "../StatusBadge/StatusBadge";
+import Link from "next/link";
 
 type TaskPropType = {
     task: TaskType;
@@ -29,8 +30,8 @@ const TaskCard = ({ task }: TaskPropType) => {
             </div>
             <div className='flex items-center justify-between'>
                 <div className='space-x-2'>
-                    <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
-                        <FaRegEye />
+                    <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer" asChild>
+                        <Link href={`/viewtask/${task.id}`}><FaRegEye /></Link>
                     </Button>
                     <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
                         <SquarePen />
