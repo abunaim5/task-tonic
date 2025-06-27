@@ -2,7 +2,10 @@
 import getAxiosPublic from "@/lib/axiosPublic";
 import { TaskListType } from "@/types/types";
 import { useMutation } from "@tanstack/react-query";
+import { Loader2Icon } from "lucide-react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface IFormInput {
     title: string;
@@ -32,8 +35,13 @@ const AddTask = () => {
             due_date: data.date
         }
         mutate(newTask);
-        // toast.success('New task added to the board!');
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success('New task added to the board!');
+        }
+    }, [isSuccess]);
 
     return (
         <section className='h-[calc(100vh-206px)]'>
@@ -103,7 +111,14 @@ const AddTask = () => {
                             <p className='text-red-500' role="alert">{errors.description.message}</p>
                         )}
                     </div>
-                    <input className='w-full cursor-pointer py-[10px] rounded-sm bg-black hover:bg-gray-900 text-white' type="submit" value='Submit' />
+                    <button className='w-full cursor-pointer py-[10px] rounded-sm bg-black hover:bg-gray-900 text-white' type='submit'>
+                        {
+                            isPending ? (<div className='flex items-center justify-center gap-2'>
+                                <Loader2Icon className='animate-spin' />
+                                <span>Please wait</span>
+                            </div>) : 'Submit'
+                        }
+                    </button>
                 </div>
             </form>
         </section>

@@ -1,7 +1,6 @@
 'use client';
 import TaskCard from "@/components/TaskCard/TaskCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import getAxiosPublic from "@/lib/axiosPublic";
 import useTasks from "@/lib/useTasks";
 import { TaskType } from "@/types/types";
@@ -9,6 +8,7 @@ import { Ellipsis, Plus } from "lucide-react";
 import Link from "next/link";
 import { CiFilter } from "react-icons/ci";
 import toast from "react-hot-toast";
+import TaskCardSkeleton from "@/components/TaskCardSkeleton/TaskCardSkeleton";
 
 export default function Home() {
   const { tasks, isLoading, refetch } = useTasks();
@@ -86,12 +86,11 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div className="flex items-center space-x-4">
-                <Skeleton className="h-12 w-12 rounded-full bg-white" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px] bg-white" />
-                  <Skeleton className="h-4 w-[200px] bg-white" />
-                </div>
+              isLoading ? (<div className='space-y-6'>
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
               </div>) : pendingTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
@@ -104,12 +103,11 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div className="flex items-center space-x-4">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>
+              isLoading ? (<div className='space-y-6'>
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
               </div>) : inprogressTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
@@ -122,7 +120,12 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div>Loading...</div>) : reviewTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
+              isLoading ? (<div className='space-y-6'>
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+              </div>) : reviewTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>
@@ -134,7 +137,12 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div>Loading...</div>) : completedTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
+              isLoading ? (<div className='space-y-6'>
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+                <TaskCardSkeleton />
+              </div>) : completedTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>
