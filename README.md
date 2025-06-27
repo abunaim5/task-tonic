@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Tonic
+
+A simple and polished Task Manager built using the provided Postman API collection. This app delivers a dashboard-like experience with clean UI/UX and complete CRUD functionality.
+
+## Features
+
+### 1. Dashboard (`/`)
+- List all tasks with:
+  - Title
+  - Status
+  - Due Date (formatted)
+  - Action buttons: **View**, **Edit**, **Delete**
+- Filter by task status: **All**, **Pending**, **Completed**
+
+### 2. View Task (`/tasks/[id]`)
+- View single task details: Title, Description, Status, Due Date
+- Loading skeleton/spinner during fetch
+- Error message for invalid task ID
+
+### 3. Add Task (`/tasks/new`)
+- Create new task via form:
+  - Fields: title, description, status (dropdown), due date (datepicker)
+- Input validation and error/success handling
+- Sends **POST** request
+
+### 4. Edit Task (`/tasks/[id]/edit`)
+- Pre-filled form for updating a task
+- Submit updates via **PUT** request
+- Loading state while fetching data
+
+### 5. Delete Task
+- Delete from task list or single view
+- Confirmation prompt
+- Sends **DELETE** request
+
+### 6. Report Tasks
+- Completed, Incomplete, In-progress and total tasks count
+
+### 7. Loading States
+- Shown during:
+  - Data fetch
+  - Form submit
+  - Navigation
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Date Formatting:** dayjs
+- **Forms:** React Hook Form
+- **State Management:** useState, useEffect
+- **Navigation:** next/navigation
 
 ## Getting Started
 
-First, run the development server:
+To run the project locally:
 
 ```bash
+# Clone the repository
+git clone https://github.com/abunaim5/task-tonic
+
+# Navigate into the directory
+cd task-tonic
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
