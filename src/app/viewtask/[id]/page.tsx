@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import getAxiosPublic from "@/lib/axiosPublic";
 import { TaskType } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
+import { LucideFileX2 } from "lucide-react";
 import { use } from "react";
 
 type TaskId = {
@@ -35,8 +36,9 @@ const ViewTask = ({ params }: TaskId) => {
                             <Skeleton className="h-4 w-52 bg-white" />
                             <Skeleton className="h-36 w-[1144px] bg-white" />
                         </div>
-                    </div>) : isError ? (<div className='w-3/4 mx-auto p-4 space-y-4 text-center rounded-sm shadow-sm bg-white'>
-                        <h4 className='text-2xl font-bold'>Task not found</h4>
+                    </div>) : isError ? (<div className='flex flex-col items-center justify-center gap-3 bg-gray-50'>
+                        <LucideFileX2 size={32} className='text-gray-500' />
+                        <p>Task not found.</p>
                     </div>) : (<div className='w-3/4 mx-auto p-4 space-y-4 rounded-sm shadow-sm bg-white'>
                         <h2 className='text-5xl font-bold'>{task?.title}</h2>
                         <StatusBadge status={task?.status ?? ''} />

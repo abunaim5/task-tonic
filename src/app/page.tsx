@@ -9,13 +9,23 @@ import Link from "next/link";
 import { CiFilter } from "react-icons/ci";
 import toast from "react-hot-toast";
 import TaskCardSkeleton from "@/components/TaskCardSkeleton/TaskCardSkeleton";
+import { useMemo, useState } from "react";
 
 export default function Home() {
   const { tasks, isLoading, refetch } = useTasks();
-  const pendingTasks = tasks.filter(task => task.status.toLowerCase() === 'pending');
-  const inprogressTasks = tasks.filter(task => task.status.toLowerCase() === 'inprogress');
-  const reviewTasks = tasks.filter(task => task.status.toLowerCase() === 'review');
-  const completedTasks = tasks.filter(task => task.status.toLowerCase() === 'completed');
+  const [sortDate, setSortDate] = useState<'asc' | 'desc'>('asc');
+  const sortedTasks = useMemo(() => {
+    return [...tasks].sort((a, b) => {
+      const dateA = new Date(a.due_date).getTime();
+      const dateB = new Date(b.due_date).getTime();
+      return sortDate === 'asc' ? dateA - dateB : dateB - dateA;
+    })
+  }, [tasks, sortDate]);
+
+  const pendingTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'pending');
+  const inprogressTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'inprogress');
+  const reviewTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'review');
+  const completedTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'completed');
   const axiosPublic = getAxiosPublic();
 
   const handleDeleteTask = async (taskId: string) => {
@@ -60,14 +70,13 @@ export default function Home() {
             <Plus size={18} />
             <span>Add Task</span>
           </Link>
-          <Select>
-            <SelectTrigger className="w-36 rounded-sm cursor-pointer shadow-none">
-              <SelectValue placeholder="Sort by date" />
+          <Select value={sortDate} onValueChange={(value) => setSortDate(value as 'asc' | 'desc')}>
+            <SelectTrigger className="w-fit rounded-sm cursor-pointer shadow-none">
+              <SelectValue placeholder="Sort by Due Date" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="default">Default</SelectItem>
-              <SelectItem value="low">Low to High</SelectItem>
-              <SelectItem value="high">High to Low</SelectItem>
+              <SelectItem value="asc">Earliest First</SelectItem>
+              <SelectItem value="desc">Latest First</SelectItem>
             </SelectContent>
           </Select>
           <div className='flex items-center gap-[2px] text-xl hover:text-[#3E3EE0] cursor-pointer'>
