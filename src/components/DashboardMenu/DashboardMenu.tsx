@@ -1,7 +1,7 @@
 // 'use client';
 import Link from "next/link";
 import { MdOutlineInsertChart, MdOutlineSettings } from "react-icons/md";
-import { CircleUser, ClipboardPlus, Inbox, LayoutDashboard } from "lucide-react";
+import { ClipboardPlus, Inbox, LayoutDashboard } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const DashboardMenu = () => {
@@ -21,11 +21,7 @@ const DashboardMenu = () => {
                         <ClipboardPlus size={18} />
                         <span>Add Task</span>
                     </Link>
-                    <Link href='/' className={`${linkCls} `}>
-                        <CircleUser size={18} />
-                        <span>Profile</span>
-                    </Link>
-                    <Link href='/' className={`${linkCls} `}>
+                    <Link href='/overview' className={`${linkCls} ${pathname === '/overview' ? 'text-white bg-[#3E3EE0] font-semibold' : ''}`}>
                         <MdOutlineInsertChart size={18} />
                         <span>Report</span>
                     </Link>

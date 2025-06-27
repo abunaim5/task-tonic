@@ -40,7 +40,7 @@ const ViewTask = ({ params }: TaskId) => {
                         <LucideFileX2 size={32} className='text-gray-500' />
                         <p>Task not found.</p>
                     </div>) : (<div className='w-3/4 mx-auto p-4 space-y-4 rounded-sm shadow-sm bg-white'>
-                        <h2 className='text-5xl font-bold'>{task?.title}</h2>
+                        <h2 className='text-3xl font-bold'>{task?.title}</h2>
                         <StatusBadge status={task?.status ?? ''} />
                         <div><span className='font-semibold'>Due Date:</span> <span>{new Date(task?.due_date ?? '').toLocaleDateString('en-us', options)}</span></div>
                         <p className='text-justify'>{task?.description}</p>

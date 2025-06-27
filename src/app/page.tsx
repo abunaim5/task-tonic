@@ -86,6 +86,7 @@ export default function Home() {
           <Ellipsis className='cursor-pointer' />
         </div>
       </div>
+
       <div className='flex items-center gap-5 justify-between h-full mt-8 text-lg font-semibold'>
         <div className='flex-1 h-full p-4 rounded-sm overflow-hidden bg-[#F8F9FA]'>
           <div className='flex items-center gap-2'>
@@ -93,7 +94,7 @@ export default function Home() {
             <h1>TO DO</h1>
           </div>
           {/* task cards */}
-          <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -104,13 +105,14 @@ export default function Home() {
             }
           </div>
         </div>
+
         <div className='flex-1 h-full p-4 rounded-sm overflow-hidden bg-[#F8F9FA]'>
           <div className='flex items-center gap-2'>
             <div className='flex items-center justify-center w-9 h-9 rounded-full text-white bg-orange-400'>{inprogressTasks.length ?? 0}</div>
             <h1>IN PROGRESS</h1>
           </div>
           {/* task cards */}
-          <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -121,13 +123,14 @@ export default function Home() {
             }
           </div>
         </div>
+
         <div className='flex-1 h-full p-4 rounded-sm overflow-hidden bg-[#F8F9FA]'>
           <div className='flex items-center gap-2'>
             <div className='flex items-center justify-center w-9 h-9 rounded-full text-white bg-blue-400'>{reviewTasks.length ?? 0}</div>
             <h1>REVIEW</h1>
           </div>
           {/* task cards */}
-          <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -138,13 +141,14 @@ export default function Home() {
             }
           </div>
         </div>
+
         <div className='flex-1 h-full p-4 rounded-sm overflow-hidden bg-[#F8F9FA]'>
           <div className='flex items-center gap-2'>
             <div className='flex items-center justify-center w-9 h-9 rounded-full text-white bg-green-400'>{completedTasks.length ?? 0}</div>
             <h1>DONE</h1>
           </div>
           {/* task cards */}
-          <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
