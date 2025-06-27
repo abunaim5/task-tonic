@@ -15,7 +15,7 @@ const ViewTask = ({ params }: TaskId) => {
     const axiosPublic = getAxiosPublic();
     const { id } = use(params);
 
-    const { isLoading, data: task } = useQuery<TaskType>({
+    const { isLoading, data: task, isError } = useQuery<TaskType>({
         queryKey: ['task'],
         queryFn: async () => {
             const res = await axiosPublic.get(`/tasks/${id}`);
@@ -35,6 +35,8 @@ const ViewTask = ({ params }: TaskId) => {
                             <Skeleton className="h-4 w-52 bg-white" />
                             <Skeleton className="h-36 w-[1144px] bg-white" />
                         </div>
+                    </div>) : isError ? (<div className='w-3/4 mx-auto p-4 space-y-4 text-center rounded-sm shadow-sm bg-white'>
+                        <h4 className='text-2xl font-bold'>Task not found</h4>
                     </div>) : (<div className='w-3/4 mx-auto p-4 space-y-4 rounded-sm shadow-sm bg-white'>
                         <h2 className='text-5xl font-bold'>{task?.title}</h2>
                         <StatusBadge status={task?.status ?? ''} />
