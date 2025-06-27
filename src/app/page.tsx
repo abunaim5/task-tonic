@@ -2,18 +2,54 @@
 import TaskCard from "@/components/TaskCard/TaskCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import getAxiosPublic from "@/lib/axiosPublic";
 import useTasks from "@/lib/useTasks";
 import { TaskType } from "@/types/types";
 import { Ellipsis, Plus } from "lucide-react";
 import Link from "next/link";
 import { CiFilter } from "react-icons/ci";
+import toast from "react-hot-toast";
 
 export default function Home() {
-  const { tasks, isLoading } = useTasks();
+  const { tasks, isLoading, refetch } = useTasks();
   const pendingTasks = tasks.filter(task => task.status.toLowerCase() === 'pending');
   const inprogressTasks = tasks.filter(task => task.status.toLowerCase() === 'inprogress');
   const reviewTasks = tasks.filter(task => task.status.toLowerCase() === 'review');
   const completedTasks = tasks.filter(task => task.status.toLowerCase() === 'completed');
+  const axiosPublic = getAxiosPublic();
+
+  const handleDeleteTask = async (taskId: string) => {
+    const res = await axiosPublic.delete(`/tasks/${taskId}`);
+    if (res.status === 200) {
+      toast.success('Task has been deleted.');
+      await refetch();
+    }
+  };
+
+  const handleWarning = (taskId: string) => {
+    toast.custom((t) => (
+      <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md  bg-white shadow-lg rounded-lg pointer-events-auto flex flex-col items-center justify-center gap-4 p-4 ring-1 ring-[#F8F9FA]`}>
+        <div className='text-center'>
+          <p className="text-lg font-semibold text-gray-900">Are you sure?</p>
+          <p className="mt-1 text-sm text-gray-500">You won&apos;t be able to revert this!</p>
+        </div>
+        <div className="flex items-center justify-center gap-2">
+          <button
+            onClick={() => { handleDeleteTask(taskId); toast.dismiss(t.id) }}
+            className="max-w-fit text-sm transform transition-all duration-500 text-white bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-sm cursor-pointer"
+          >
+            Yes, delete it!
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="max-w-fit text-sm transform transition-all duration-500 text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-sm cursor-pointer"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ))
+  }
 
   return (
     <section className='h-[calc(100vh-206px)]'>
@@ -56,7 +92,7 @@ export default function Home() {
                   <Skeleton className="h-4 w-[250px] bg-white" />
                   <Skeleton className="h-4 w-[200px] bg-white" />
                 </div>
-              </div>) : pendingTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} />)
+              </div>) : pendingTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>
@@ -74,7 +110,7 @@ export default function Home() {
                   <Skeleton className="h-4 w-[250px]" />
                   <Skeleton className="h-4 w-[200px]" />
                 </div>
-              </div>) : inprogressTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} />)
+              </div>) : inprogressTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>
@@ -86,7 +122,7 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div>Loading...</div>) : reviewTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} />)
+              isLoading ? (<div>Loading...</div>) : reviewTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>
@@ -98,7 +134,7 @@ export default function Home() {
           {/* task cards */}
           <div className='max-h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
             {
-              isLoading ? (<div>Loading...</div>) : completedTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} />)
+              isLoading ? (<div>Loading...</div>) : completedTasks.map((task: TaskType, idx) => <TaskCard key={idx} task={task} handleWarning={handleWarning} />)
             }
           </div>
         </div>

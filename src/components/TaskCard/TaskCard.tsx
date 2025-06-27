@@ -7,12 +7,13 @@ import { TaskType } from "@/types/types";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import Link from "next/link";
 
-type TaskPropType = {
+type TaskCardProps = {
     task: TaskType;
+    handleWarning: (taskId: string) => void;
 };
 
-const TaskCard = ({ task }: TaskPropType) => {
-    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' }
+const TaskCard = ({ task, handleWarning }: TaskCardProps) => {
+    const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
 
     return (
         < div className='p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white' >
@@ -36,7 +37,7 @@ const TaskCard = ({ task }: TaskPropType) => {
                     <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
                         <Link href={`/edittask/${task.id}`}><SquarePen /></Link>
                     </Button>
-                    <Button variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
+                    <Button onClick={() => handleWarning(task.id)} variant='ghost' size="icon" className="size-8 rounded-sm cursor-pointer">
                         <Trash2 />
                     </Button>
                 </div>

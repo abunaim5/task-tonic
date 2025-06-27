@@ -16,7 +16,7 @@ const AddTask = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
     const axiosPublic = getAxiosPublic();
 
-    const { isSuccess, mutate } = useMutation({
+    const { isSuccess, isPending, mutate } = useMutation({
         mutationFn: async (taskData: TaskListType) => {
             const res = await axiosPublic.post('/tasks', taskData);
             return res;
