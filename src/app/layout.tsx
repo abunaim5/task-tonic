@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import LayoutWrapper from "@/components/LayoutWrapper/LayoutWrapper";
 import ReactQueryProvider from "./providers/ReactQueryProvider";
+import DndWrapper from "@/components/DndWrapper/DndWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,10 +25,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <ReactQueryProvider>
-          <LayoutWrapper>
-            {children}
-            <Toaster />
-          </LayoutWrapper>
+          <DndWrapper>
+            <LayoutWrapper>
+              {children}
+              <Toaster />
+            </LayoutWrapper>
+          </DndWrapper>
         </ReactQueryProvider>
       </body>
     </html>
