@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 const useTasks = () => {
     const axiosPublic = getAxiosPublic();
 
-    const {isLoading, data, refetch} = useQuery<TaskType[]>({
+    const { isLoading, data, refetch } = useQuery<TaskType[]>({
         queryKey: ['tasks'],
         queryFn: async () => {
             const res = await axiosPublic.get('/tasks');
@@ -15,7 +15,7 @@ const useTasks = () => {
 
     const tasks = data ?? []
 
-    return {tasks, isLoading, refetch};
+    return { tasks, isLoading, refetch };
 };
 
 export default useTasks;

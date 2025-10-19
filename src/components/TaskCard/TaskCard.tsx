@@ -6,6 +6,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { TaskType } from "@/types/types";
 import StatusBadge from "../StatusBadge/StatusBadge";
 import Link from "next/link";
+import { useDrag } from "react-dnd";
+import { cn } from "@/lib/utils";
 
 type TaskCardProps = {
     task: TaskType;
@@ -14,9 +16,16 @@ type TaskCardProps = {
 
 const TaskCard = ({ task, handleWarning }: TaskCardProps) => {
     const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' };
+    const [{ isDragging }, dragRef] = useDrag(() => ({
+        type: 'TASK',
+        item: { id: task.id, status: task.status },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging()
+        })
+    }));
 
     return (
-        < div className='p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white' >
+        <div ref={el => { dragRef(el) }} className={cn('p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white', isDragging ? 'opacity-80' : 'opacity-100')} >
             <div className='flex items-center justify-between'>
                 <h4 className='text-lg'>{task.title}</h4>
                 <div className='flex items-center gap-2 text-red-500'>
