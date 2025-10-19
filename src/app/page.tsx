@@ -121,7 +121,7 @@ export default function Home() {
             <h1>TO DO</h1>
           </div>
           {/* task cards */}
-          <div ref={el => { dropPending(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverPending ? 'bg-cyan-100' : '')}>
+          <div ref={el => { dropPending(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverPending ? 'bg-cyan-100 transition-all duration-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -139,7 +139,7 @@ export default function Home() {
             <h1>IN PROGRESS</h1>
           </div>
           {/* task cards */}
-          <div ref={el => { dropInprogress(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverInprogress ? 'bg-orange-100' : '')}>
+          <div ref={el => { dropInprogress(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverInprogress ? 'bg-orange-100 transition-all duration-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -157,7 +157,7 @@ export default function Home() {
             <h1>REVIEW</h1>
           </div>
           {/* task cards */}
-          <div ref={el => { dropReview(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverReview ? 'bg-blue-100' : '')}>
+          <div ref={el => { dropReview(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverReview ? 'bg-blue-100 transition-all duration-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -175,7 +175,7 @@ export default function Home() {
             <h1>DONE</h1>
           </div>
           {/* task cards */}
-          <div ref={el => { dropCompleted(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverCompleted ? 'bg-green-100' : '')}>
+          <div ref={el => { dropCompleted(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverCompleted ? 'bg-green-100 transition-all duration-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
