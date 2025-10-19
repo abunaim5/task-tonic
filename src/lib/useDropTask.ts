@@ -1,15 +1,17 @@
+'use client';
 import { useDrop } from "react-dnd";
 
-interface DroppingTaskProps {
-    handleTaskStatusChange: (id: string, status: string) => void;
+interface UseDropTaskProps {
+    status: string;
+    onDropTask: (taskId: string, newStatus: string) => void;
 }
 
-const useDroppingTask = ({ handleTaskStatusChange }: DroppingTaskProps) => {
+const useDroppingTask = ({ status, onDropTask }: UseDropTaskProps) => {
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'TASK',
         drop: (item: { id: string, status: string }) => {
-            if (item.status !== item.status) {
-                handleTaskStatusChange(item.id, item.status)
+            if (item.status !== status) {
+                onDropTask(item.id, status)
             }
         },
         collect: (monitor) => ({

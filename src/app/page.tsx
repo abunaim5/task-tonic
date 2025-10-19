@@ -10,6 +10,8 @@ import { CiFilter } from "react-icons/ci";
 import toast from "react-hot-toast";
 import TaskCardSkeleton from "@/components/TaskCardSkeleton/TaskCardSkeleton";
 import { useMemo, useState } from "react";
+import useDroppingTask from "@/lib/useDropTask";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const { tasks, isLoading, refetch } = useTasks();
@@ -27,6 +29,31 @@ export default function Home() {
   const reviewTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'review');
   const completedTasks = sortedTasks.filter(task => task.status.toLowerCase() === 'completed');
   const axiosPublic = getAxiosPublic();
+
+  // drag and drop logic for task progress change
+  const handleTaskStatusChange = async (taskId: string, newStatus: string) => {
+    const res = await axiosPublic.put(`/tasks/${taskId}`, { status: newStatus });
+    if (res.status === 200) {
+      toast.success(`Task moved to ${newStatus}`);
+      refetch();
+    }
+  }
+  const { isOver: isOverPending, dropRef: dropPending } = useDroppingTask({
+    status: 'pending',
+    onDropTask: handleTaskStatusChange
+  });
+  const { isOver: isOverInprogress, dropRef: dropInprogress } = useDroppingTask({
+    status: 'inprogress',
+    onDropTask: handleTaskStatusChange
+  });
+  const { isOver: isOverReview, dropRef: dropReview } = useDroppingTask({
+    status: 'review',
+    onDropTask: handleTaskStatusChange
+  });
+  const { isOver: isOverCompleted, dropRef: dropCompleted } = useDroppingTask({
+    status: 'completed',
+    onDropTask: handleTaskStatusChange
+  });
 
   const handleDeleteTask = async (taskId: string) => {
     const res = await axiosPublic.delete(`/tasks/${taskId}`);
@@ -94,7 +121,7 @@ export default function Home() {
             <h1>TO DO</h1>
           </div>
           {/* task cards */}
-          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div ref={el => { dropPending(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverPending ? 'bg-cyan-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -112,7 +139,7 @@ export default function Home() {
             <h1>IN PROGRESS</h1>
           </div>
           {/* task cards */}
-          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div ref={el => { dropInprogress(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverInprogress ? 'bg-orange-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -130,7 +157,7 @@ export default function Home() {
             <h1>REVIEW</h1>
           </div>
           {/* task cards */}
-          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div ref={el => { dropReview(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverReview ? 'bg-blue-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />
@@ -148,7 +175,7 @@ export default function Home() {
             <h1>DONE</h1>
           </div>
           {/* task cards */}
-          <div className='h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide'>
+          <div ref={el => { dropCompleted(el) }} className={cn('h-full mt-4 space-y-4 scroll-smooth overflow-y-auto whitespace-nowrap snap-y snap-mandatory scrollbar-hide rounded-sm', isOverCompleted ? 'bg-green-100' : '')}>
             {
               isLoading ? (<div className='space-y-6'>
                 <TaskCardSkeleton />

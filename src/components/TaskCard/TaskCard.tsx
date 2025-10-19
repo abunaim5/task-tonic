@@ -25,7 +25,7 @@ const TaskCard = ({ task, handleWarning }: TaskCardProps) => {
     }));
 
     return (
-        <div ref={el => { dragRef(el) }} className={cn('p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white', isDragging ? 'opacity-80' : 'opacity-100')} >
+        <div ref={el => { dragRef(el) }} className={cn('p-4 space-y-3 text-base font-normal rounded-sm shadow-sm bg-white', isDragging ? 'opacity-100' : 'opacity-100')} >
             <div className='flex items-center justify-between'>
                 <h4 className='text-lg'>{task.title}</h4>
                 <div className='flex items-center gap-2 text-red-500'>
